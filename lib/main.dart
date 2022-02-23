@@ -1,7 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+
+Future<void> main() async {
   runApp(const MyApp());
+
+  await Firebase.initializeApp();
+
+  FirebaseFirestore.instance.collection('pedidos').doc('#0001').set(
+    {'usuario':'Daniel Ciolfi 2'}
+  );
+
+
+  var collection = FirebaseFirestore.instance.collection('contact');
+  collection.doc('contato').set({
+    'name':'Charleston'
+  }
+  ).then((value) => print('deu certo'))
+  .catchError((error) => print('deu errado $error'));
+
+  DocumentSnapshot document = await FirebaseFirestore.instance.collection('pedidos').doc('#0001').get();
+
+  print(document.data());
 }
 
 class MyApp extends StatelessWidget {
