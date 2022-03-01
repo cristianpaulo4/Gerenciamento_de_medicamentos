@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gerenciamento_medicamentos/common/custom_drawer/custom_drawer.dart';
 import 'package:gerenciamento_medicamentos/models/page_manager.dart';
+import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -16,6 +17,8 @@ class BaseScreen extends StatelessWidget {
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
+
+          LoginScreen(),
 
           Scaffold(
             drawer: CustomDrawer(),

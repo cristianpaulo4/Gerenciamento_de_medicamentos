@@ -14,6 +14,7 @@ class DrawerTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final int curParge = context.watch<PageManager>().page;
+    final Color primaryColor = Theme.of(context).primaryColor;
 
     return InkWell(
       onTap: () {
@@ -30,7 +31,7 @@ class DrawerTile extends StatelessWidget {
               child: Icon(
                 iconData,
                 size: 32,
-                color: curParge == page ? Colors.red : Colors.grey[700],
+                color: curParge == page ? primaryColor : Colors.grey[700],
               ),
             ),
 
@@ -38,7 +39,7 @@ class DrawerTile extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 16,
-                color: curParge == page ? Colors.red : Colors.grey[700],
+                color: curParge == page ? primaryColor : Colors.grey[700],
               ),
             )
 
