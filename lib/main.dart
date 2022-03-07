@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/app_routes.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/base/base_screen.dart';
+import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.blue,
         ),
         home: BaseScreen(),
+       routes: {
+         AppRoutes.SignUpScreen: (context) => SignUpScreen(),
+       },
       ),
     );
   }

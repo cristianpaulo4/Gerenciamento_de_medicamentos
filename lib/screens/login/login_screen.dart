@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:gerenciamento_medicamentos/helpers/validators.dart';
 import 'package:gerenciamento_medicamentos/models/user.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
+import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
 
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -17,8 +18,25 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text('Entrar'),
-        centerTitle: true,
+      //  title: const Text('Entrar'),
+      //  centerTitle: true,
+        actions: <Widget>[
+          GestureDetector(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 18, 30, 0),
+              child: Container(
+                  child: const Text('CRIAR CONTA',
+                  style: TextStyle(fontSize: 20),),
+              ),
+            ),
+            onTap: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()),
+              );
+            },
+          ),
+        ],
+
       ),
 
       body: Consumer<UserManager>(
@@ -39,10 +57,7 @@ class LoginScreen extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       validator: (email) {
-                       if(!emailValid(email!)) {
-                          emailValid(email);
-                        }
-                       return null;
+                         return emailValid(email);
                       },
                     ),
 
@@ -86,7 +101,10 @@ class LoginScreen extends StatelessWidget {
                             userManager.signIn(
                                 userApp: UserApp(
                                     email: emailController.text,
-                                    password: passController.text
+                                    password: passController.text,
+                                    confirmPassword: '',
+                                    name: '',
+                                    id: ''
                                 ),
 
                                 onFail: (e){
@@ -94,8 +112,7 @@ class LoginScreen extends StatelessWidget {
                                     SnackBar(
                                       backgroundColor: Colors.red,
                                         content: Text(e,
-                                          style: TextStyle(
-                                            fontSize: 22,
+                                          style: const TextStyle(fontSize: 22,
                                           ) ,
                                         ))
                                   );
