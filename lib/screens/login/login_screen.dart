@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/colors.dart';
 import 'package:gerenciamento_medicamentos/helpers/validators.dart';
 import 'package:gerenciamento_medicamentos/models/user.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
+import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -97,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                       child: ElevatedButton(
 
                         onPressed: userManager.loading? null : () {
-                          if(formKey.currentState!.validate()) {
+                          if(formKey.currentState.validate()) {
                             userManager.signIn(
                                 userApp: UserApp(
                                     email: emailController.text,
@@ -110,8 +112,8 @@ class LoginScreen extends StatelessWidget {
                                 onFail: (e){
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      backgroundColor: Colors.red,
-                                        content: Text(e,
+                                      backgroundColor: ColorsApp.red,
+                                        content: Text('Falha: $e',
                                           style: const TextStyle(fontSize: 22,
                                           ) ,
                                         ))
@@ -119,10 +121,12 @@ class LoginScreen extends StatelessWidget {
                                 },
 
                                 onSuccess: (){
+
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
+
                                   print('#######################');
                                   print('Sucesso');
                                   print('#######################');
-                                  //TODO: FECHAR TELA DE LOGIN
                                 }
                             );
                           }
@@ -130,7 +134,7 @@ class LoginScreen extends StatelessWidget {
 
                         child: userManager.loading ?
                         const CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                          valueColor: AlwaysStoppedAnimation(ColorsApp.white),
                         ):
                           const Text(
                           'Entrar',

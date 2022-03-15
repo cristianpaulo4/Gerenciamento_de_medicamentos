@@ -3,11 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserApp {
 
   UserApp({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.password,
-    required this.confirmPassword
+    this.id,
+    this.name,
+    this.email,
+    this.password,
+    this.confirmPassword
   });
 
 
@@ -19,10 +19,10 @@ class UserApp {
 
 
   DocumentReference get firestoreRef =>
-    FirebaseFirestore.instance.doc('users/$id');
+    Firestore.instance.document('users/$id');
 
   Future<void> saveData() async{
-    await firestoreRef.set(toMap());
+    await firestoreRef.setData(toMap());
   }
 
   Map<String, dynamic> toMap(){

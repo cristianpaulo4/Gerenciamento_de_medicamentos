@@ -1,40 +1,55 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciamento_medicamentos/app_routes.dart';
+import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/models/medicine_manager.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/base/base_screen.dart';
+import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
+import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
+import 'package:gerenciamento_medicamentos/screens/register/register.screen.dart';
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
- // await FirebaseAuth.instance.useAuthEmulator();
   runApp(const MyApp());
 }
 
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => UserManager(),
-     child: MaterialApp(
-        title: 'Gerenciamento de medicamentos',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.blueGrey,
-          appBarTheme: const AppBarTheme(
-            elevation: 0
-          ),
-          scaffoldBackgroundColor: Colors.blue,
+    return MultiProvider(
+
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserManager(),
+          lazy: false,
         ),
-        home: BaseScreen(),
-       routes: {
-         AppRoutes.SignUpScreen: (context) => SignUpScreen(),
-       },
-      ),
+        ChangeNotifierProvider(
+          create: (_) => MedicineManager(),
+          lazy: false,
+        )
+      ],
+
+      child: MaterialApp(
+         title: 'Gerenciamento de medicamentos',
+         debugShowCheckedModeBanner: false,
+         theme: ThemeData(
+           primaryColor: ColorsApp.blueGrey,
+           appBarTheme: const AppBarTheme(
+             elevation: 0
+           ),
+           scaffoldBackgroundColor: ColorsApp.blue,
+         ),
+         home: BaseScreen(),
+        routes: {
+          AppRoutes.SignUpScreen: (context) => SignUpScreen(),
+          AppRoutes.LoginScreen: (context) => LoginScreen(),
+          AppRoutes.MedicineScreen: (context) => MedicineScreen(),
+          AppRoutes.RegisterScreen: (context) => RegisterScreen(),
+        },
+       ),
     );
   }
 }

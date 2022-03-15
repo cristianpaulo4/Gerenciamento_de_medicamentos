@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/colors.dart';
 import 'package:gerenciamento_medicamentos/models/page_manager.dart';
 import 'package:provider/provider.dart';
 
 class DrawerTile extends StatelessWidget {
 
-  const DrawerTile({required this.iconData, required this.title, required this.page});
+  const DrawerTile({this.iconData, this.title, this.page});
 
   final IconData iconData;
   final String title;
@@ -31,7 +32,7 @@ class DrawerTile extends StatelessWidget {
               child: Icon(
                 iconData,
                 size: 32,
-                color: curParge == page ? primaryColor : Colors.grey[700],
+                color: curParge == page ? primaryColor : ColorsApp.grey,
               ),
             ),
 
@@ -39,7 +40,7 @@ class DrawerTile extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 16,
-                color: curParge == page ? primaryColor : Colors.grey[700],
+                color: curParge == page ? primaryColor : ColorsApp.grey,
               ),
             )
 

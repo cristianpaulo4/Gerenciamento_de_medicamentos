@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/colors.dart';
 import 'package:gerenciamento_medicamentos/helpers/validators.dart';
 import 'package:gerenciamento_medicamentos/models/user.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
+import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
 import 'package:provider/src/provider.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -33,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
                     validator: (name){
                       return nameValid(name) ;
                     },
-                    onSaved: (name) => userApp.name = name!,
+                    onSaved: (name) => userApp.name = name,
                   ),
 
                   const SizedBox(height: 16,),
@@ -44,7 +45,7 @@ class SignUpScreen extends StatelessWidget {
                     validator: (email){
                       return emailValid(email);
                     },
-                    onSaved: (email) => userApp.email = email!,
+                    onSaved: (email) => userApp.email = email,
                   ),
 
                   const SizedBox(height: 16,),
@@ -55,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                     validator: (pass){
                       return passValid(pass);
                     },
-                    onSaved: (password) => userApp.password = password!,
+                    onSaved: (password) => userApp.password = password,
                   ),
 
                   const SizedBox(height: 16,),
@@ -66,20 +67,20 @@ class SignUpScreen extends StatelessWidget {
                     validator: (pass){
                       return passValid(pass);
                     },
-                    onSaved: (confirmPassword) => userApp.confirmPassword = confirmPassword!,
+                    onSaved: (confirmPassword) => userApp.confirmPassword = confirmPassword,
                   ),
 
                   const SizedBox(height: 16,),
 
                   ElevatedButton(
                     onPressed: (){
-                     if (formKey.currentState!.validate()) {
-                       formKey.currentState!.save();
+                     if (formKey.currentState.validate()) {
+                       formKey.currentState.save();
 
                        if (userApp.password != userApp.confirmPassword) {
                          ScaffoldMessenger.of(context).showSnackBar(
                              const SnackBar(
-                                 backgroundColor: Colors.red,
+                                 backgroundColor: ColorsApp.red,
                                  content: Text('Senhas não coincidem!',
                                    style: TextStyle(
                                      fontSize: 22,
@@ -92,8 +93,8 @@ class SignUpScreen extends StatelessWidget {
                          onFail: (e){
                            ScaffoldMessenger.of(context).showSnackBar(
                                SnackBar(
-                                   backgroundColor: Colors.red,
-                                   content: Text(e,
+                                   backgroundColor: ColorsApp.red,
+                                   content: Text('Falha: $e',
                                      style: const TextStyle(fontSize: 22,
                                      ) ,
                                    ))
@@ -101,10 +102,10 @@ class SignUpScreen extends StatelessWidget {
                          },
 
                          onSuccess: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
                            print('#######################');
                            print('Sucesso');
                            print('#######################');
-                           //TODO: POP
                          }
                      );
                     }},
