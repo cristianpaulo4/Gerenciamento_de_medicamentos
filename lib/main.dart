@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/app_routes.dart';
 import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/models/medicine.dart';
 import 'package:gerenciamento_medicamentos/models/medicine_manager.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/base/base_screen.dart';
+import 'package:gerenciamento_medicamentos/screens/edit_medicine/edit_medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
-import 'package:gerenciamento_medicamentos/screens/register/register.screen.dart';
+import 'package:gerenciamento_medicamentos/screens/medicine_details/medication_details_screen.dart';
+import 'package:gerenciamento_medicamentos/screens/register/register_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -42,13 +44,54 @@ class MyApp extends StatelessWidget {
            ),
            scaffoldBackgroundColor: ColorsApp.blue,
          ),
-         home: BaseScreen(),
-        routes: {
-          AppRoutes.SignUpScreen: (context) => SignUpScreen(),
-          AppRoutes.LoginScreen: (context) => LoginScreen(),
-          AppRoutes.MedicineScreen: (context) => MedicineScreen(),
-          AppRoutes.RegisterScreen: (context) => RegisterScreen(),
+
+        onGenerateRoute: (settings){
+          switch(settings.name){
+
+            case '/login':
+              return MaterialPageRoute(
+                  builder: (_) => LoginScreen()
+              );
+
+            case '/signup':
+              return MaterialPageRoute(
+                  builder: (_) => SignUpScreen()
+              );
+
+            case '/Medicine':
+              return MaterialPageRoute(
+                  builder: (_) => MedicineScreen(),
+              );
+
+            case '/Medicine_Details':
+              return MaterialPageRoute(
+                  builder: (_) =>  MedicineDetailsScreen(
+                      settings.arguments as Medicine
+                  )
+              );
+
+            case '/Register':
+              return MaterialPageRoute(
+                  builder: (_) => RegisterScreen()
+              );
+
+            case '/edit_medicine':
+              return MaterialPageRoute(
+                  builder: (_) => EditMedicineScreen(
+                    settings.arguments as Medicine
+                  )
+              );
+
+            case '/':
+            default:
+              return MaterialPageRoute(
+                  builder: (_) => BaseScreen(),
+                  settings: settings
+              );
+
+          }
         },
+
        ),
     );
   }

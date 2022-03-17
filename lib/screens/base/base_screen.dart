@@ -4,7 +4,7 @@ import 'package:gerenciamento_medicamentos/models/page_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
-import 'package:gerenciamento_medicamentos/screens/register/register.screen.dart';
+import 'package:gerenciamento_medicamentos/screens/register/register_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -21,7 +21,7 @@ class BaseScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
 
-       //   LoginScreen(),
+         // LoginScreen(),
 
           MedicineScreen(),
 
