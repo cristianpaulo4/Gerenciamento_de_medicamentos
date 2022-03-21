@@ -37,10 +37,21 @@ class MedicineListTile extends StatelessWidget {
                     Text(
                       medicine.name,
                       style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+
+
+                    Text(
+                      medicine.type,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
+
+
                   ],
                 ),
               )

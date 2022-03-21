@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageSourceSheet extends StatelessWidget {
@@ -12,11 +11,6 @@ class ImageSourceSheet extends StatelessWidget {
 
   final ImagePicker picker = ImagePicker();
 
-  void editImage(String path){
-    ImageCropper();
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -26,21 +20,39 @@ class ImageSourceSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
 
-          ElevatedButton(
-              onPressed: () async {
-               final PickedFile file = await picker.getImage(source: ImageSource.camera);
-               editImage(file.path);
-              },
-              child: const Text('Câmera')
+
+          const SizedBox(height: 10,),
+
+          SizedBox(
+            height: 45,
+            child: ElevatedButton(
+                onPressed: () async {
+                 final PickedFile file = await picker.getImage(source: ImageSource.camera);
+                 onImageSelected(File(file.path));
+                },
+                child: const Text('Câmera',
+                    style: TextStyle(
+                    fontSize: 20)
+                  )
+            ),
           ),
 
-          ElevatedButton(
-              onPressed: () async {
+          const SizedBox(height: 20,),
+
+          SizedBox(
+            height: 45,
+            child: ElevatedButton(
+             onPressed: () async {
                 final PickedFile file = await  picker.getImage(source: ImageSource.gallery);
-                editImage(file.path);
+                onImageSelected(File(file.path));
               },
-              child: const Text('Câmera')
+              child: const Text('Galeria',
+                  style: TextStyle(
+                      fontSize: 20))
+            ),
           ),
+
+          const SizedBox(height: 10,),
 
         ],
       ),

@@ -21,7 +21,7 @@ class MedicineDetailsScreen extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.edit),
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/edit_medicine');
+                Navigator.of(context).pushReplacementNamed('/edit_medicine', arguments: medicine);
               }
           )
         ],
@@ -47,6 +47,18 @@ class MedicineDetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+
+                const Padding(
+                  padding: EdgeInsets.only(top: 16, bottom: 8),
+                  child: Text(
+                    'Nome do medicamento:',
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ),
+
                 Text(
                   medicine.name,
                   style: const TextStyle(
@@ -54,30 +66,13 @@ class MedicineDetailsScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    'Quantidade de dias',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-                Text(
-                  medicine.numberDays,
-                  style: const TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color:Colors.blue,
-                  ),
-                ),
+
                 const Padding(
-                  padding: EdgeInsets.only(top: 16, bottom: 8),
+                  padding: EdgeInsets.only(top: 20, bottom: 8),
                   child: Text(
-                    'Descrição',
+                    'Descrição:',
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 22,
                         fontWeight: FontWeight.w500
                     ),
                   ),
@@ -85,7 +80,7 @@ class MedicineDetailsScreen extends StatelessWidget {
                 Text(
                   medicine.type,
                   style: const TextStyle(
-                      fontSize: 16
+                      fontSize: 18
                   ),
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciamento_medicamentos/colors.dart';
 import 'package:gerenciamento_medicamentos/models/medicine.dart';
@@ -13,11 +14,16 @@ class ImagesForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('################');
-    print(medicine);
-    print('#################');
     return FormField<List<dynamic>>(
       initialValue: List.from(medicine.images),
+
+      validator: (images){
+        if(images.isEmpty) {
+          return 'Insira ao menos uma imagem';
+        }else{
+          return null;
+        }
+      },
       builder: (state){
 
         void onImageSelected(File file){
@@ -26,54 +32,72 @@ class ImagesForm extends StatelessWidget {
           Navigator.of(context).pop();
         }
 
-          return AspectRatio(
-            aspectRatio: 1,
-            child: Carousel(
-              images: state.value.map<Widget>((image){
-                return Stack(
-                  fit: StackFit.expand,
-                  children:<Widget>[
-                    if(image != Null)
-                      Image.network(image, fit: BoxFit.cover,)
-                    else
-                      Image.file(image as File, fit: BoxFit.cover,),
-                     Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          icon: const Icon(Icons.remove),
-                          color: Colors.red,
-                        onPressed: () {
-                          state.value.remove(image);
-                          state.didChange(state.value);
-                        },
-                      ),
-                    )
-                  ],
-                );
-              }).toList()..add(
-                  Material(
-                    color: Colors.grey[100],
-                    child: IconButton(
-                      icon: const Icon(Icons.add_a_photo),
-                      color: Colors.blueAccent,
-                      iconSize: 50,
-                      onPressed: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (_) => ImageSourceSheet(
-                              onImageSelected: onImageSelected,
-                            )
-                        );
-                      },
-                    ),
-                  )
+          return Column(
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: Carousel(
+                  images: state.value.map<Widget>((image){
+                    return Stack(
+                      fit: StackFit.expand,
+                      children:<Widget>[
+                        if(image is String)
+                          Image.network(image, fit: BoxFit.cover,)
+                        else
+                          Image.file(image as File, fit: BoxFit.cover,),
+                         Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                              icon: const Icon(Icons.remove),
+                              color: Colors.red,
+                            onPressed: () {
+                              state.value.remove(image);
+                              state.didChange(state.value);
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  }).toList()..add(
+                      Material(
+                        color: Colors.grey[100],
+                        child: IconButton(
+                          icon: const Icon(Icons.add_a_photo),
+                          color: Colors.blueAccent,
+                          iconSize: 50,
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (_) => ImageSourceSheet(
+                                  onImageSelected: onImageSelected,
+                                )
+                            );
+                          },
+                        ),
+                      )
+                  ),
+                  dotSize: 4,
+                  dotSpacing: 15,
+                  dotBgColor: Colors.transparent,
+                  dotColor: ColorsApp.blue,
+                  autoplay: false,
+                ),
               ),
-              dotSize: 4,
-              dotSpacing: 15,
-              dotBgColor: Colors.transparent,
-              dotColor: ColorsApp.blue,
-              autoplay: false,
-            ),
+
+              if(state.hasError)
+                Container(
+                  margin: const EdgeInsets.only(top: 16, left: 16),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    state.errorText,
+                    style: const TextStyle(
+                      color : Colors.red,
+                    fontSize: 20)
+                  ),
+                )
+
+
+            ],
           );
 
       },
