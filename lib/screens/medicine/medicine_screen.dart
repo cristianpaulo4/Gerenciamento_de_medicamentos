@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/common/custom_drawer/custom_drawer.dart';
-import 'package:gerenciamento_medicamentos/models/medicine.dart';
 import 'package:gerenciamento_medicamentos/models/medicine_manager.dart';
+import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/components/medicine_list_tile.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/components/search_dialog.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 import 'package:provider/provider.dart';
 
 class MedicineScreen extends StatelessWidget {
@@ -12,20 +12,20 @@ class MedicineScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
       appBar: AppBar(
         title: Consumer<MedicineManager>(
-          builder: (_, medicineManager, __){
-            if(medicineManager.search.isEmpty){
-              return const Text('Medicamentos');
+          builder: (_, medicineManager, __) {
+            if (medicineManager.search.isEmpty) {
+              return Text('Medicamentos', style: TextStyles.titleAppBar);
             } else {
               return LayoutBuilder(
-                builder: (_, constraints){
+                builder: (_, constraints) {
                   return GestureDetector(
                     onTap: () async {
-                      final search = await showDialog<String>(context: context,
+                      final search = await showDialog<String>(
+                          context: context,
                           builder: (_) => SearchDialog(medicineManager.search));
-                      if(search != null){
+                      if (search != null) {
                         medicineManager.search = search;
                       }
                     },
@@ -34,8 +34,7 @@ class MedicineScreen extends StatelessWidget {
                         child: Text(
                           medicineManager.search,
                           textAlign: TextAlign.center,
-                        )
-                    ),
+                        )),
                   );
                 },
               );
@@ -45,48 +44,58 @@ class MedicineScreen extends StatelessWidget {
         centerTitle: true,
         actions: <Widget>[
           Consumer<MedicineManager>(
-            builder: (_, medicineManager, __){
-              if(medicineManager.search.isEmpty){
+            builder: (_, medicineManager, __) {
+              if (medicineManager.search.isEmpty) {
                 return IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () async {
-                    final search = await showDialog<String>(context: context,
+                    final search = await showDialog<String>(
+                        context: context,
                         builder: (_) => SearchDialog(medicineManager.search));
-                    if(search != null){
+                    if (search != null) {
                       medicineManager.search = search;
                     }
                   },
                 );
               } else {
                 return IconButton(
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   onPressed: () async {
                     medicineManager.search = '';
                   },
                 );
-                    }
+              }
             },
-          )
+          ),
+          IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/edit_medicine');
+              })
         ],
       ),
-
       body: Consumer<MedicineManager>(
-        builder: (_ ,medicineManager, __){
+        builder: (_, medicineManager, __) {
           final filteredMedicine = medicineManager.filteredMedicine;
           return ListView.builder(
-            padding: const EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               itemCount: filteredMedicine.length,
-              itemBuilder: (_, index){
+              itemBuilder: (_, index) {
                 return ListTile(
                   title: MedicineListTile(filteredMedicine[index]),
                 );
-            }
-          );
+              });
         },
       ),
 
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        foregroundColor: Theme.of(context).primaryColor,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+        child: const Icon(Icons.lock),
+      ),
     );
   }
 }
-
-

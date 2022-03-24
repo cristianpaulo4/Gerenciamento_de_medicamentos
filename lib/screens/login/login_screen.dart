@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 import 'package:gerenciamento_medicamentos/helpers/validators.dart';
 import 'package:gerenciamento_medicamentos/models/user.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -19,16 +20,16 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
+
+
       appBar: AppBar(
-      //  title: const Text('Entrar'),
-      //  centerTitle: true,
         actions: <Widget>[
           GestureDetector(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(15, 18, 30, 0),
               child: Container(
-                  child: const Text('CRIAR CONTA',
-                  style: TextStyle(fontSize: 20),),
+                  child: Text('CRIAR CONTA',
+                  style: TextStyles.titleAppBar),
               ),
             ),
             onTap: (){
@@ -112,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                 onFail: (e){
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      backgroundColor: ColorsApp.red,
+                                      backgroundColor: ColorsApp.RED,
                                         content: Text('Falha: $e',
                                           style: const TextStyle(fontSize: 22,
                                           ) ,
@@ -121,12 +122,7 @@ class LoginScreen extends StatelessWidget {
                                 },
 
                                 onSuccess: (){
-
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
-
-                                  print('#######################');
-                                  print('Sucesso');
-                                  print('#######################');
                                 }
                             );
                           }
@@ -134,13 +130,11 @@ class LoginScreen extends StatelessWidget {
 
                         child: userManager.loading ?
                         const CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(ColorsApp.white),
+                          valueColor: AlwaysStoppedAnimation(ColorsApp.WHITE),
                         ):
-                          const Text(
+                           Text(
                           'Entrar',
-                          style: TextStyle(
-                              fontSize: 20
-                          ),
+                        style: TextStyles.letterBoot,
                         ),
                       ),
                     ),

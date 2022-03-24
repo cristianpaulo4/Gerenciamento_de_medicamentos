@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 
 class SearchDialog extends StatelessWidget {
-
   const SearchDialog(this.initialText);
 
   final String initialText;
@@ -24,13 +24,12 @@ class SearchDialog extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(vertical: 15),
                   prefixIcon: IconButton(
                     icon: Icon(Icons.arrow_back),
-                    color: Colors.grey[700],
-                    onPressed: (){
+                    color: ColorsApp.DARK_BLUE,
+                    onPressed: () {
                       Navigator.of(context).pop();
                     },
-                  )
-              ),
-              onFieldSubmitted: (text){
+                  )),
+              onFieldSubmitted: (text) {
                 Navigator.of(context).pop(text);
               },
             ),

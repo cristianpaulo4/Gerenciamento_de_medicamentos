@@ -1,7 +1,8 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 import 'package:gerenciamento_medicamentos/models/medicine.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 
 class MedicineDetailsScreen extends StatelessWidget {
 
@@ -15,7 +16,8 @@ class MedicineDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(medicine.name),
+        title: Text(medicine.name,
+            style: TextStyles.titleAppBar),
         centerTitle: true,
         actions: [
           IconButton(
@@ -26,7 +28,7 @@ class MedicineDetailsScreen extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: ColorsApp.WHITE,
       body: ListView(
         children: <Widget>[
           AspectRatio(
@@ -38,7 +40,7 @@ class MedicineDetailsScreen extends StatelessWidget {
               dotSize: 4,
               dotSpacing: 15,
               dotBgColor: Colors.transparent,
-              dotColor: ColorsApp.blue,
+              dotColor: ColorsApp.BLUE,
               autoplay: false,
             ),
           ),

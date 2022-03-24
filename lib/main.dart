@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 import 'package:gerenciamento_medicamentos/models/medicine.dart';
 import 'package:gerenciamento_medicamentos/models/medicine_manager.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
-import 'package:gerenciamento_medicamentos/screens/base/base_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/edit_medicine/edit_medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine_details/medication_details_screen.dart';
-import 'package:gerenciamento_medicamentos/screens/register/register_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -38,11 +36,11 @@ class MyApp extends StatelessWidget {
          title: 'Gerenciamento de medicamentos',
          debugShowCheckedModeBanner: false,
          theme: ThemeData(
-           primaryColor: ColorsApp.blueGrey,
+           primaryColor: ColorsApp.DARK_BLUE,
            appBarTheme: const AppBarTheme(
              elevation: 0
            ),
-           scaffoldBackgroundColor: ColorsApp.blue,
+           scaffoldBackgroundColor: ColorsApp.BLUE,
          ),
 
         onGenerateRoute: (settings){
@@ -50,7 +48,7 @@ class MyApp extends StatelessWidget {
 
             case '/login':
               return MaterialPageRoute(
-                  builder: (_) => LoginScreen()
+                 builder: (_) => LoginScreen()
               );
 
             case '/signup':
@@ -58,21 +56,16 @@ class MyApp extends StatelessWidget {
                   builder: (_) => SignUpScreen()
               );
 
-            case '/Medicine':
-              return MaterialPageRoute(
-                  builder: (_) => MedicineScreen(),
-              );
+      //      case '/Medicine':
+      //        return MaterialPageRoute(
+      //            builder: (_) => MedicineScreen(),
+      //        );
 
             case '/Medicine_Details':
               return MaterialPageRoute(
                   builder: (_) =>  MedicineDetailsScreen(
                       settings.arguments as Medicine
                   )
-              );
-
-            case '/Register':
-              return MaterialPageRoute(
-                  builder: (_) => RegisterScreen()
               );
 
             case '/edit_medicine':
@@ -85,7 +78,7 @@ class MyApp extends StatelessWidget {
             case '/':
             default:
               return MaterialPageRoute(
-                  builder: (_) => BaseScreen(),
+                  builder: (_) => MedicineScreen(),
                   settings: settings
               );
 

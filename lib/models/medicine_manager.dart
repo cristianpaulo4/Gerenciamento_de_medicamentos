@@ -50,5 +50,11 @@ class MedicineManager extends ChangeNotifier {
 
   }
 
+  void update(Medicine medicine){
+    allMedicine.removeWhere((m) => m.id == medicine.id);
+    allMedicine.add(medicine);
+    notifyListeners();
+  }
+
 
 }

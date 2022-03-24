@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 import 'package:gerenciamento_medicamentos/helpers/validators.dart';
 import 'package:gerenciamento_medicamentos/models/user.dart';
 import 'package:gerenciamento_medicamentos/models/user_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 import 'package:provider/src/provider.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 
 class SignUpScreen extends StatelessWidget {
 
@@ -15,8 +17,8 @@ class SignUpScreen extends StatelessWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('CADASTRO',
-            style: TextStyle(fontSize: 20),),
+          title: Text('CADASTRO',
+            style: TextStyles.titleAppBar,),
           centerTitle: true,
         ),
         body: Center(
@@ -80,7 +82,7 @@ class SignUpScreen extends StatelessWidget {
                        if (userApp.password != userApp.confirmPassword) {
                          ScaffoldMessenger.of(context).showSnackBar(
                              const SnackBar(
-                                 backgroundColor: ColorsApp.red,
+                                 backgroundColor: ColorsApp.RED,
                                  content: Text('Senhas não coincidem!',
                                    style: TextStyle(
                                      fontSize: 22,
@@ -93,7 +95,7 @@ class SignUpScreen extends StatelessWidget {
                          onFail: (e){
                            ScaffoldMessenger.of(context).showSnackBar(
                                SnackBar(
-                                   backgroundColor: ColorsApp.red,
+                                   backgroundColor: ColorsApp.RED,
                                    content: Text('Falha: $e',
                                      style: const TextStyle(fontSize: 22,
                                      ) ,
@@ -103,17 +105,12 @@ class SignUpScreen extends StatelessWidget {
 
                          onSuccess: (){
                            Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
-                           print('#######################');
-                           print('Sucesso');
-                           print('#######################');
                          }
                      );
                     }},
 
-                    child: const Text('Criar conta',
-                      style: TextStyle(
-                        fontSize: 20
-                      ),
+                    child: Text('Criar conta',
+                      style: TextStyles.letterBoot,
                     ),
 
                   ),

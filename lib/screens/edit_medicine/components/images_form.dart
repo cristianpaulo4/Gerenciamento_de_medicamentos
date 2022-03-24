@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gerenciamento_medicamentos/colors.dart';
+import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 import 'package:gerenciamento_medicamentos/models/medicine.dart';
 import 'package:gerenciamento_medicamentos/screens/edit_medicine/components/image_source_sheet.dart';
 
@@ -24,8 +24,9 @@ class ImagesForm extends StatelessWidget {
           return null;
         }
       },
-      builder: (state){
+      onSaved: (images) => medicine.newImages = images,
 
+      builder: (state){
         void onImageSelected(File file){
           state.value.add(file);
           state.didChange(state.value);
@@ -49,7 +50,7 @@ class ImagesForm extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: IconButton(
                               icon: const Icon(Icons.remove),
-                              color: Colors.red,
+                              color: ColorsApp.RED,
                             onPressed: () {
                               state.value.remove(image);
                               state.didChange(state.value);
@@ -60,10 +61,10 @@ class ImagesForm extends StatelessWidget {
                     );
                   }).toList()..add(
                       Material(
-                        color: Colors.grey[100],
+                        color: ColorsApp.WHITE,
                         child: IconButton(
                           icon: const Icon(Icons.add_a_photo),
-                          color: Colors.blueAccent,
+                          color: ColorsApp.DARK_BLUE,
                           iconSize: 50,
                           onPressed: () {
                             showModalBottomSheet(
@@ -79,7 +80,7 @@ class ImagesForm extends StatelessWidget {
                   dotSize: 4,
                   dotSpacing: 15,
                   dotBgColor: Colors.transparent,
-                  dotColor: ColorsApp.blue,
+                  dotColor: ColorsApp.BLUE,
                   autoplay: false,
                 ),
               ),
@@ -91,11 +92,10 @@ class ImagesForm extends StatelessWidget {
                   child: Text(
                     state.errorText,
                     style: const TextStyle(
-                      color : Colors.red,
+                      color : ColorsApp.RED,
                     fontSize: 20)
                   ),
                 )
-
 
             ],
           );

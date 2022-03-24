@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 bool emailError(String email){
   final RegExp regex = RegExp(
       r"^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
@@ -24,7 +26,7 @@ String nameValid (name){
 }
 
 
- passValid(pass){
+passValid(pass){
   if(pass.isEmpty) {
     return 'Campo obrigatório';
   }else if (pass.length < 6 ) {
@@ -32,6 +34,28 @@ String nameValid (name){
   }
   return null;
 }
+
+DescValid(description){
+  if(description.length > 151) {
+    return 'Descrição muito longo, Maximo 150 caracteres.';
+  }
+  return null;
+}
+
+nameMedicineValid(name){
+  if(name.length < 1) {
+    return 'Insira o nome';
+  }else if(name.length > 25){
+    return 'Nome muito logo, Maximo 25 caracteres';
+  }
+  return null;
+}
+
+
+
+
+
+
 
 
 

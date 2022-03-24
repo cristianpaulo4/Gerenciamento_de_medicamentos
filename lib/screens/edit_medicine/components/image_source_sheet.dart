@@ -32,12 +32,13 @@ class ImageSourceSheet extends StatelessWidget {
                 },
                 child: const Text('Câmera',
                     style: TextStyle(
-                    fontSize: 20)
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,)
                   )
             ),
           ),
 
-          const SizedBox(height: 20,),
+          const SizedBox(height: 30,),
 
           SizedBox(
             height: 45,
@@ -48,7 +49,8 @@ class ImageSourceSheet extends StatelessWidget {
               },
               child: const Text('Galeria',
                   style: TextStyle(
-                      fontSize: 20))
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,))
             ),
           ),
 

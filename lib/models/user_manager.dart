@@ -68,12 +68,5 @@ class UserManager with ChangeNotifier {
     notifyListeners();
  }
 
-//Future<void> _loadCurrentUser() async {
-//    final User currentUser = auth.currentUser!;
-//    final DocumentSnapshot docUser = await firestore.collection('users').doc(currentUser.uid).get();
-//    print(User);
-//    notifyListeners();
-//  }
-
 }
 
