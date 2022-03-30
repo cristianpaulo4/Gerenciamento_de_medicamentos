@@ -45,11 +45,12 @@ DescValid(description){
 nameMedicineValid(name){
   if(name.length < 1) {
     return 'Insira o nome';
-  }else if(name.length > 25){
-    return 'Nome muito logo, Maximo 25 caracteres';
+  }else if(name.length > 18){
+    return 'Nome muito logo, Maximo 18 caracteres';
   }
   return null;
 }
+
 
 
 

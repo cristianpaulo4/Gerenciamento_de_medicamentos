@@ -88,6 +88,9 @@ class Medicine extends ChangeNotifier {
   }
 
 
+  void delete(){
+    firestoreRef.delete();
+  }
 
 
   Medicine clone(){

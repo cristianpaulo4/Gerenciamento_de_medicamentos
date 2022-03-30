@@ -8,6 +8,7 @@ import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
+import 'package:gerenciamento_medicamentos/models/user_manager.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -50,7 +51,7 @@ class LoginScreen extends StatelessWidget {
               child: Form(
                 key: formKey,
                 child: ListView(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
                   shrinkWrap: true,
                   children: <Widget>[
                     TextFormField(
@@ -86,8 +87,38 @@ class LoginScreen extends StatelessWidget {
                           child: const Text(
                               'Esqueci minha senha'
                           ),
+                          // ignore: void_checks
                           onTap: () {
-                            print('funcionu');
+
+                                    if(emailController.text.isEmpty) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: ColorsApp.RED,
+                                            content: Text('Insira seu E-mail para recuperação',
+                                                style: TextStyles.titleSize2),
+                                            duration: const Duration(seconds: 4),
+                                          )
+                                      );
+                                    }else if(emailValid(emailController.text)!= null){
+                                      return
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: ColorsApp.RED,
+                                            content: Text( emailValid(emailController.text),
+                                            style: TextStyles.titleSize2,
+                                             ))
+                                            );
+                                    }else{
+                                      UserManager().recoverPass(emailController.text);
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: ColorsApp.BLUE,
+                                            content: Text('Confira seu E-mail',
+                                                style: TextStyles.titleSize2),
+                                            duration: const Duration(seconds: 4),
+                                          )
+                                      );
+                                    }
                           },
                         ),
                       ),
@@ -95,48 +126,51 @@ class LoginScreen extends StatelessWidget {
 
                     const SizedBox(height: 16,),
 
-                    SizedBox(
-                      height: 44,
-                      child: ElevatedButton(
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 44,
+                          width: 300,
+                          child: ElevatedButton(
+                            onPressed: userManager.loading? null : () {
+                              if(formKey.currentState.validate()) {
+                                userManager.signIn(
+                                    userApp: UserApp(
+                                        email: emailController.text,
+                                        password: passController.text,
 
-                        onPressed: userManager.loading? null : () {
-                          if(formKey.currentState.validate()) {
-                            userManager.signIn(
-                                userApp: UserApp(
-                                    email: emailController.text,
-                                    password: passController.text,
-                                    confirmPassword: '',
-                                    name: '',
-                                    id: ''
-                                ),
+                                    ),
 
-                                onFail: (e){
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: ColorsApp.RED,
-                                        content: Text('Falha: $e',
-                                          style: const TextStyle(fontSize: 22,
-                                          ) ,
-                                        ))
-                                  );
-                                },
+                                    onFail: (e){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: ColorsApp.RED,
+                                            content: Text('Falha: $e',
+                                              style: TextStyles.titleSize2,
+                                            ))
+                                      );
+                                    },
 
-                                onSuccess: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
-                                }
-                            );
-                          }
-                        },
+                                    onSuccess: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
+                                    }
+                                );
+                              }
+                            },
 
-                        child: userManager.loading ?
-                        const CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(ColorsApp.WHITE),
-                        ):
-                           Text(
-                          'Entrar',
-                        style: TextStyles.letterBoot,
+                            child: userManager.loading ?
+                            const CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(ColorsApp.WHITE),
+                            ):
+                               Text(
+                              'Entrar',
+                            style: TextStyles.letterBoot,
+                            ),
+                          ),
                         ),
-                      ),
+
+
+                      ],
                     ),
 
                   ],
@@ -150,3 +184,4 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+

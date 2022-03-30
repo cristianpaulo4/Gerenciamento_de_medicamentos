@@ -1,16 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/main.dart';
 import 'package:gerenciamento_medicamentos/models/medicine_manager.dart';
 import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/components/medicine_list_tile.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/components/search_dialog.dart';
 import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
+import 'package:locally/locally.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class MedicineScreen extends StatelessWidget {
-  const MedicineScreen({Key key}) : super(key: key);
+   MedicineScreen({Key key}) : super(key: key);
 
-  @override
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  AndroidInitializationSettings androidInitializationSettings;
+  InitializationSettings initializationSettings;
+
+  init() async {
+    androidInitializationSettings = const AndroidInitializationSettings('app_icon',);
+    initializationSettings = InitializationSettings(
+      android: androidInitializationSettings,
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelectNotification,);
+  }
+
+   // selecionar notificação
+   Future onSelectNotification(String payLoad) {
+     if (payLoad != null) {
+       print(payLoad);
+     }
+   }
+
+
+   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Consumer<MedicineManager>(

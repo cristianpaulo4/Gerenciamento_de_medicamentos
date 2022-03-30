@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:gerenciamento_medicamentos/helpers/firebase_erros.dart';
 import 'package:gerenciamento_medicamentos/models/user.dart';
 
+
 class UserManager with ChangeNotifier {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -68,5 +69,10 @@ class UserManager with ChangeNotifier {
     notifyListeners();
  }
 
+
+  void recoverPass(String email) async {
+    auth.sendPasswordResetEmail(email: email);
+  }
+     
 }
 

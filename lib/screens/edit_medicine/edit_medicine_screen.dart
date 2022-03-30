@@ -43,7 +43,7 @@ class EditMedicineScreen extends StatelessWidget {
           key: formKey,
           child: ListView(
             children: <Widget>[
-              ImagesForm(medicine),
+              ImagesForm(medicine, editing),
 
               Padding(
                   padding: const EdgeInsets.all(16),
@@ -78,39 +78,124 @@ class EditMedicineScreen extends StatelessWidget {
                       onSaved: (type) => medicine.type = type,
                     ),
 
+
                     const SizedBox(height: 30),
                     
                     Consumer<Medicine>(
                         builder: ( _, medicine, __){
                           return SizedBox(
                               height:45,
-                              child: ElevatedButton(
-                                  onPressed: !medicine.loading ? () async {
-                                    if(formKey.currentState.validate()){
-                                      formKey.currentState.save();
-                                      await medicine.save();
-                                      context.read<MedicineManager>().update(medicine);
-                                      snackBar = SnackBar(
-                                        content:  Center(
-                                            child: Text(
-                                                editing ? 'Medicamento Editado \ncom sucesso!!!' : 'Medicamento Salvo \ncom sucesso!!!',
-                                                style: TextStyles.titleSize1
-                                            )),
-                                        duration: const Duration(seconds: 2),
-                                        backgroundColor: ColorsApp.BLUE,
-                                      );
-                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
-                                    }
-                                  }: null,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                 children: [
+                                  SizedBox(
+                                    width: 160.0,
+                                    height: 100.0,
+                                    child: ElevatedButton(
+                                        onPressed: !medicine.loading ? () async {
+                                          if(formKey.currentState.validate()){
+                                            formKey.currentState.save();
+                                            await medicine.save();
+                                            context.read<MedicineManager>().update(medicine);
+                                            snackBar = SnackBar(
+                                              content:  Center(
+                                                  child: Text(
+                                                      editing ? 'Medicamento Editado!!!' : 'Medicamento Salvo!!!',
+                                                      style: TextStyles.titleSize1
+                                                  )),
+                                              duration: const Duration(seconds: 2),
+                                              backgroundColor: ColorsApp.BLUE,
+                                            );
+                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                           Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
+                                          }
+                                        }: null,
 
-                                  child: medicine.loading
-                                   ? const CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation( ColorsApp.WHITE),
-                              ):
-                                  Text('Salvar',
-                                          style: TextStyles.letterBoot
+                                        child: medicine.loading
+                                         ? const CircularProgressIndicator(
+                                          valueColor: AlwaysStoppedAnimation( ColorsApp.WHITE),
+                                    ):
+                                        Text('Salvar',
+                                                style: TextStyles.letterBoot
+                                        ),
+                                    ),
                                   ),
+
+
+                                if(editing)  SizedBox(
+                                    width: 160.0,
+                                    height: 100.0,
+                                    child: ElevatedButton.icon(
+
+                                      onPressed: () {
+
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text(medicine.name),
+                                                content: Text(medicine.type),
+                                                actions: <Widget>[
+                                                  AspectRatio(
+                                                    aspectRatio: 1,
+                                                    child: Image.network(medicine.images.first),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        ElevatedButton.icon(
+
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+
+                                                            icon: const Icon(
+                                                                Icons.history,
+                                                                color: ColorsApp.YELLOW
+                                                            ),
+
+                                                            label: Text('Voltar')),
+
+                                                        ElevatedButton.icon(
+                                                          onPressed: () {
+                                                            context.read<MedicineManager>().delete(medicine);
+                                                           Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineScreen()));
+                                                           //TODO: Arruma navegação, esta voltando...
+                                                          },
+                                                          label: Text('Deletar'),
+
+                                                          icon: const Icon(
+                                                              Icons.delete,
+                                                              color: ColorsApp.RED
+                                                          ),
+                                                        )
+
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                        },
+
+                                      label: Text('Deletar',
+                                          style: TextStyles.letterBoot
+                                      ),
+
+                                      icon: const Icon(
+                                        Icons.delete,
+                                            color: ColorsApp.RED
+                                      ),
+
+                                      style: ElevatedButton.styleFrom(
+                                        primary: ColorsApp.BLACK
+                                      ),
+
+                                    ),
+                                  )
+
+                                ],
                               ),
                             );
                         },

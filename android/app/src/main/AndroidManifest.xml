@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="charlestonpassos.com.gerenciamento_medicamentos">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
    <application
         android:label="gerenciamento_medicamentos"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,6 +33,13 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
+       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+           <intent-filter>
+               <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+           </intent-filter>
+       </receiver>
+
+       <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
 
     </application>
 </manifest>

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageSourceSheet extends StatelessWidget {
@@ -30,10 +31,8 @@ class ImageSourceSheet extends StatelessWidget {
                  final PickedFile file = await picker.getImage(source: ImageSource.camera);
                  onImageSelected(File(file.path));
                 },
-                child: const Text('Câmera',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,)
+                child: Text('Câmera',
+                    style: TextStyles.letterBoot
                   )
             ),
           ),
@@ -47,10 +46,8 @@ class ImageSourceSheet extends StatelessWidget {
                 final PickedFile file = await  picker.getImage(source: ImageSource.gallery);
                 onImageSelected(File(file.path));
               },
-              child: const Text('Galeria',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,))
+              child: Text('Galeria',
+                  style: TextStyles.letterBoot)
             ),
           ),
 

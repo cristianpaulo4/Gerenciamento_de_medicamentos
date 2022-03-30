@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:gerenciamento_medicamentos/themes/app_colors.dart';
 import 'package:gerenciamento_medicamentos/models/medicine.dart';
 import 'package:gerenciamento_medicamentos/screens/edit_medicine/components/image_source_sheet.dart';
+import 'package:gerenciamento_medicamentos/themes/app_text_styles.dart';
 
 class ImagesForm extends StatelessWidget {
 
-  const ImagesForm(this.medicine);
+  const ImagesForm(this.medicine, this.editing);
 
   final Medicine medicine;
+
+  final bool editing;
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +49,81 @@ class ImagesForm extends StatelessWidget {
                           Image.network(image, fit: BoxFit.cover,)
                         else
                           Image.file(image as File, fit: BoxFit.cover,),
-                         Align(
+                       if(editing)
+                        Align(
                           alignment: Alignment.topRight,
-                          child: IconButton(
-                              icon: const Icon(Icons.remove),
-                              color: ColorsApp.RED,
-                            onPressed: () {
-                              state.value.remove(image);
-                              state.didChange(state.value);
-                            },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 120,
+                              width: 100,
+                              color: ColorsApp.WHITE,
+                              child: Column(
+                                children: [
+                                  IconButton(
+                                        color: ColorsApp.RED,
+                                        iconSize: 40,
+                                        icon: const Icon(Icons.delete),
+                                      onPressed: () {
+
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Deseja deletar essa imagem?'),
+
+                                                actions: <Widget>[
+                                                  AspectRatio(
+                                                    aspectRatio: 1,
+                                                    child: Image.network(medicine.images.first),
+                                                  ),
+                                                  SizedBox(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        ElevatedButton.icon(
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+
+                                                            icon: const Icon(
+                                                                Icons.history,
+                                                                color: ColorsApp.YELLOW
+                                                            ),
+
+                                                            label: const Text('Voltar')),
+
+                                                        ElevatedButton.icon(
+                                                          onPressed: () {
+                                                            state.value.remove(image);
+                                                            state.didChange(state.value);
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          label: const Text('Deletar'),
+
+                                                          icon: const Icon(
+                                                              Icons.delete,
+                                                              color: ColorsApp.RED
+                                                          ),
+                                                        )
+
+                                                      ],
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              );
+                                            });
+
+                                      },
+                                  ),
+
+                                  Text('Deletar \nImagem',
+                                  style: TextStyles.titleSize2,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         )
                       ],

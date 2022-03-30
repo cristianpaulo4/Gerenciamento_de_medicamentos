@@ -8,7 +8,10 @@ import 'package:gerenciamento_medicamentos/screens/login/login_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine/medicine_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/medicine_details/medication_details_screen.dart';
 import 'package:gerenciamento_medicamentos/screens/signup/signup_screen.dart';
+import 'package:locally/locally.dart';
 import 'package:provider/provider.dart';
+
+
 
 Future<void> main() async {
   runApp(const MyApp());

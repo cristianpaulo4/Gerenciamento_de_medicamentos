@@ -48,13 +48,6 @@ class MedicineListTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.delete,
-                    color: ColorsApp.RED,
-                  ),
-                )
               ],
             ),
           ),

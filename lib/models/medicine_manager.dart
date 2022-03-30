@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciamento_medicamentos/models/medicine.dart';
 
@@ -55,6 +56,14 @@ class MedicineManager extends ChangeNotifier {
     allMedicine.add(medicine);
     notifyListeners();
   }
+
+
+  void delete(Medicine medicine){
+    medicine.delete();
+    allMedicine.removeWhere((m) => m.id == medicine.id);
+    notifyListeners();
+  }
+
 
 
 }
